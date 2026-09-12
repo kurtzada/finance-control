@@ -54,9 +54,12 @@ main{padding:8px 16px}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:100px;background:#0f172a;color:#fff;border:1px solid #334155;padding:10px 14px;border-radius:13px;opacity:0;pointer-events:none;transition:.2s;z-index:120}.toast.show{opacity:1}
 .checkbox{width:22px;height:22px;accent-color:var(--good)}
 .tag-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;background:var(--surface2);border-radius:99px;font-size:11px}
+
+#particles{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.55}.app{position:relative;z-index:1}@media (prefers-reduced-motion: reduce){#particles{display:none}}
 </style>
 </head>
 <body>
+<canvas id="particles" aria-hidden="true"></canvas>
 <div class="app">
 <header>
   <div class="brand">
@@ -215,6 +218,6 @@ function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",
 function escAttr(s){return esc(s)}
 if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 render();
-</script>
+\n(function(){const c=document.getElementById('particles');if(!c)return;const x=c.getContext('2d',{alpha:true});if(!x)return;let w=0,h=0,d=1,p=[],raf=0;if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;function resize(){d=Math.min(devicePixelRatio||1,2);w=innerWidth;h=innerHeight;c.width=Math.floor(w*d);c.height=Math.floor(h*d);c.style.width=w+'px';c.style.height=h+'px';x.setTransform(d,0,0,d,0,0);let n=Math.max(20,Math.min(48,Math.floor(w*h/18000)));while(p.length<n)add();p.length=n}function add(){p.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.8+.5,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.14-.02,a:Math.random()*.36+.12,t:Math.random()*6.28,s:Math.random()*.012+.006})}function draw(){x.clearRect(0,0,w,h);for(const q of p){q.x+=q.vx;q.y+=q.vy;q.t+=q.s;if(q.x<-8)q.x=w+8;if(q.x>w+8)q.x=-8;if(q.y<-8)q.y=h+8;if(q.y>h+8)q.y=-8;const a=q.a*(.72+.28*Math.sin(q.t));const g=x.createRadialGradient(q.x,q.y,0,q.x,q.y,q.r*5);g.addColorStop(0,`rgba(167,139,250,${a})`);g.addColorStop(1,'rgba(37,99,235,0)');x.fillStyle=g;x.beginPath();x.arc(q.x,q.y,q.r*5,0,Math.PI*2);x.fill();x.fillStyle=`rgba(255,255,255,${Math.min(.55,a)})`;x.beginPath();x.arc(q.x,q.y,q.r,0,Math.PI*2);x.fill()}raf=requestAnimationFrame(draw)}resize();addEventListener('resize',resize,{passive:true});raf=requestAnimationFrame(draw)})();\n</script>
 </body>
 </html>
